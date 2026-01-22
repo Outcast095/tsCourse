@@ -7,9 +7,11 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "start": "ts-node 02-basic-types/01-primitive-types.ts"
   },
   "devDependencies": {
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
 }
