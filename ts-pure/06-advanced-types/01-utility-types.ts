@@ -1,7 +1,6 @@
 /// https://youtu.be/rPaRVcH9big?t=9802
 
 {
-    {
 // Utility Types (Утилитарные типы) 
 /* 
 Utility Types в TypeScript предоставляют полезные инструменты для работы с типами.
@@ -10,7 +9,11 @@ Utility Types в TypeScript предоставляют полезные инст
 
 // 1. Partial<Type>
 // Создает новый тип, в котором все свойства Type являются необязательными.
- 
+interface IUser {
+    id: number;
+    name: string;
+    age: number;
+}
 
 const partialUser: Partial<IUser> = {}; // Валидно: все свойства необязательные
 const partialUser2: Partial<IUser> = { name: "Вася" };
@@ -57,5 +60,4 @@ const userWithoutAge: UserWithoutAge = {
     name: "Bob",
     // age: 30, // Ошибка: свойство 'age' не существует в типе 'UserWithoutAge'
 };
-}
 }
