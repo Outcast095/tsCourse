@@ -46,3 +46,149 @@ console.log(Direction[Direction.Up]); // Выведет: "Up"
 // Примеры ошибок
 // let wrongDirection: Direction = 5;
 // let wrongColor: Color = "YELLOW"; // Ошибка: "YELLOW" не является допустимым значением Color 
+
+
+////////////////////////////////////////////////////////////////
+//enum передается параметром в функцию 
+
+{
+enum Color {
+    Red = "red",
+    Blue = "blue",
+    Green = "green",
+    Black = "black"
+}
+
+const getColor = (color: Color): string => {
+    return color;
+}
+
+getColor(Color.Red);   // "red"
+getColor(Color.Black); // "black"
+}
+
+////////////////////////////////////////////////////////////////
+//enum передается в объект
+{
+enum Color {
+    Red = "red",
+    Blue = "blue",
+    Green = "green"
+}
+
+const config = {
+    colors: Color
+};
+
+console.log(config.colors.Red);   // "red"
+console.log(config.colors.Blue);  // "blue"
+
+///////////////////////
+
+const appConfig = {
+    theme: {
+        colors: Color
+    }
+};
+
+appConfig.theme.colors.Red; // "red"
+}
+
+
+////////////////////////////////////////////////////////////////
+//enum в swich case 
+
+
+enum Status {
+    Pending = "pending",
+    Success = "success",
+    Error = "error"
+}
+
+function getStatusMessage(status: Status) {
+    switch (status) {
+        case Status.Pending:
+            return "Загрузка...";
+        case Status.Success:
+            return "Успешно";
+        case Status.Error:
+            return "Ошибка";
+    }
+}
+
+////////////////////////////////////////////////////////////////
+//enum в if else
+{
+enum Status {
+    Pending = "pending",
+    Success = "success",
+    Error = "error"
+}
+
+function handleStatus(status: Status) {
+    if (status === Status.Pending) {
+        console.log("Загрузка...");
+    } 
+    else if (status === Status.Success) {
+        console.log("Успешно выполнено ✅");
+    } 
+    else if (status === Status.Error) {
+        console.log("Произошла ошибка ❌");
+    }
+}
+}
+
+
+////////////////////////////////////////////////////////////////
+//enum в if else
+
+{
+    enum Role {
+    Admin = "admin",
+    User = "user",
+    Guest = "guest"
+}
+
+function canDelete(role: Role) {
+    return role === Role.Admin;
+}
+
+canDelete(Role.Admin) // true
+canDelete(Role.User) // false
+canDelete(Role.Guest) // false
+}
+
+
+////////////////////////////////////////////////////////////////
+//Enum + объект-словарь
+
+{
+    enum Language {
+    EN = "en",
+    RU = "ru",
+    DE = "de"
+}
+
+const dictionary: Record<Language, string> = {
+    [Language.EN]: "Hello",
+    [Language.RU]: "Привет",
+    [Language.DE]: "Hallo"
+};
+
+console.log(dictionary[Language.EN]); // Hello
+console.log(dictionary[Language.RU]); // Привет
+console.log(dictionary[Language.DE]); // Hallo 
+}
+
+////////////////////////////////////////////////////////////////
+//as const
+
+{
+    const dictionary = {
+    en: "Hello",
+    ru: "Привет",
+    de: "Hallo"
+} as const;
+
+dictionary.en; // ✅  Hello
+}

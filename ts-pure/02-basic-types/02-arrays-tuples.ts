@@ -1,7 +1,8 @@
 // Массивы и кортежи в TypeScript
 // =======================================
-
+{
 // Arrays
+const names: Array<string> = ["Аня", "Макс", "Катя"];
 const numbersArr: number[] = [1, 2, 3, 4, 5];
 const namesArr: string[] = ["Alice", "Bob", "Charlie"];
 const mixedArray: (number | string)[] = [1, "hello", 2, "world"];
@@ -22,3 +23,6 @@ console.log(mixedArray);
 console.log(personArr); 
 console.log(coordinates);
 console.log(point3D);
+console.log(names);
+
+}

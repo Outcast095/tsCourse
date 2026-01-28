@@ -40,3 +40,38 @@ console.log(createGreeting("Мария")); // Привет, Мария!
 console.log(createGreeting("Алексей", "Здравствуй")); // Здравствуй, Алексей!
 console.log(sumAll(1, 2, 3, 4, 5)); // 15
 console.log(multiply(4, 5)); // 20
+
+
+
+
+// ======================================
+// функция на вход принимает объект и возвращает строку 
+
+function renderUser (user: {name: string, age: number}): string {
+    return `${user.name}, ${user.age}`
+}
+
+// ======================================
+// функция на вход принимает объект и возвращает строку второй вариант с типом  
+
+type Iuser = {
+    name: string,
+    age: number
+}
+
+function renderUser2 (user: Iuser): string {
+    return `${user.name}, ${user.age}`
+}
+
+
+// ======================================
+// функция на вход принимает объект и возвращает строку третий вариант с интерфейсом  
+
+interface Iuser2  {
+    name: string,
+    age: number
+}
+
+function renderUser3 (user: Iuser2): string {
+    return `${user.name}, ${user.age}`
+}
