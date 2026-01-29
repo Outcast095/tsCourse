@@ -1,5 +1,31 @@
 // Пример 3: Перечисления (Enums) в TypeScript
 // =========================================
+{
+enum Direction { Up, Down }          // → в JS будет ~15–20 строк кода + объект
+
+const enum ConstDirection { Up, Down }  // → в JS просто 0 и 1 вместо ConstDirection.Up
+
+//от обычных и Enum мы отказываемся полностью потому что они конвертируются во что-то очень страшное константный Enum у нас полностью
+//исчезают они не хранятся в памяти поэтому им мы отдаем больше приоритет они получаются более оптимизированы
+
+// const enum можно обращаться только через строковый литерал (прямо написанный в коде ключ), а не через переменную, выражение или динамический ключ.
+}
+
+ //Oбычный enum
+///////////////////////////////////////////////////////////////////
+{
+enum Direction {
+  Up    = 0,
+  Down  = 1,
+  Left  = 2,
+  Right = 3
+}
+
+console.log(Direction.Up);     // 0          (forward: имя → значение)
+console.log(Direction[0]);     // "Up"       (reverse: значение → имя)
+console.log(Direction["Up"]);  // 0
+console.log(Direction[Direction.Up]);  // "Up"
+}
 
 // 1. Числовые перечисления (Enums)
 // По умолчанию enum делает нумерацию своих свойств с 0.
@@ -11,7 +37,7 @@ enum Direction {
 }
 
 const move: Direction = Direction.Up;
-console.log(move);
+console.log(move); // 0 
 
 // 2. Строковые перечисления (Enums)
 enum Color {
@@ -70,28 +96,37 @@ getColor(Color.Black); // "black"
 ////////////////////////////////////////////////////////////////
 //enum передается в объект
 {
-enum Color {
+ enum Color {
     Red = "red",
     Blue = "blue",
     Green = "green"
 }
 
-const config = {
-    colors: Color
+type iConfig = {
+    colorRed: Color
+    colorBlue: Color
+    colorGreen: Color
+}
+
+const config: iConfig  = {
+    colorRed: Color.Red,
+    colorBlue: Color.Blue,
+    colorGreen: Color.Green,
 };
 
-console.log(config.colors.Red);   // "red"
-console.log(config.colors.Blue);  // "blue"
+console.log(config.colorRed);   // "red"
+console.log(config.colorBlue);  // "blue"
+console.log(config.colorGreen);  // "green"
 
 ///////////////////////
 
 const appConfig = {
     theme: {
-        colors: Color
+        colors: Color.Red
     }
 };
 
-appConfig.theme.colors.Red; // "red"
+appConfig.theme.colors; // "red"
 }
 
 
@@ -181,6 +216,36 @@ console.log(dictionary[Language.DE]); // Hallo
 }
 
 ////////////////////////////////////////////////////////////////
+// enum может итерироваться при помощи циклов иди методов Object.keys Object.values
+{
+enum Role {
+  Admin  = "admin",
+  Editor = "editor",
+  Viewer = "viewer",
+}
+
+console.log(Object.keys(Role));
+// → ["Admin", "Editor", "Viewer"]   ← только имена, значения не попадают в ключи
+
+console.log(Object.values(Role));
+// → ["admin", "editor", "viewer"]   ← только значения
+
+// Самый удобный способ перебрать
+for (const role of Object.values(Role)) {
+  console.log(role);  // "admin", "editor", "viewer"
+}
+
+// Или с ключами
+for (const key of Object.keys(Role)) {
+  const value = Role[key as keyof typeof Role];
+  console.log(`${key}: ${value}`);
+  // Admin: admin
+  // Editor: editor
+  // ...
+}
+}
+
+////////////////////////////////////////////////////////////////
 //as const
 
 {
@@ -191,4 +256,52 @@ console.log(dictionary[Language.DE]); // Hallo
 } as const;
 
 dictionary.en; // ✅  Hello
+}
+
+
+
+// const enum имеет определенные ограничения
+{
+const enum Direction {
+  Up    = 0,
+  Down  = 1,
+  Left  = 2,
+  Right = "right"
+
+}
+
+console.log(Direction.Up);     // 0          
+//console.log(Direction[0]);     // (запрещено)
+console.log(Direction["Up"]);  // 0
+//console.log(Direction["right"]);   // (запрещено)
+//console.log(Direction[Direction.Up]); // (запрещено)
+}
+
+
+{
+
+    //const enum — итерация невозможна
+const enum Color {
+  Red   = "red",
+  Blue  = "blue",
+  Green = "green",
+}
+
+// Object.keys(Color) → ошибка компиляции
+// Object.values(Color) → ошибка
+// for...of Color → ошибка
+
+// Единственный способ — вручную перечислить
+const manualColors = [Color.Red, Color.Blue, Color.Green];
+}
+
+
+{
+const enum ConstStatus {
+  Pending = 0,
+  Active  = 1
+}
+
+//console.log(ConstStatus[0]);     // Ошибка компиляции!
+//console.log(ConstStatus.Active); // → просто 1 в JS, но reverse нет и быть не может
 }
