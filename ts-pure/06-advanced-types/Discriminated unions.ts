@@ -52,3 +52,23 @@ const handleChocolateCount = (chocolates: marsAndSnickers | snickersAndBounty): 
     user.permissions;   // ок!
     }
 }
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+{
+    type ApiState<T> =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data: T }
+  | { status: "error";   error: string; code?: number };
+
+function render(state: ApiState<User[]>) {
+  switch (state.status) {
+    case "idle":    return //<Empty />;
+    case "loading": return //<Spinner />;
+    case "success": return //<UserList users={state.data} />;
+    case "error":   return //<ErrorMessage msg={state.error} />;
+    // default НЕ нужен — TS знает, что все варианты покрыты
+  }
+}
+}

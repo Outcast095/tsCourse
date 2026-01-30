@@ -36,3 +36,32 @@ function getNumber(): number {
 type StringReturnType = ReturnTypeOf<typeof getString>; // StringReturnType будет string
 type NumberReturnType = ReturnTypeOf<typeof getNumber>; // NumberReturnType будет number
 }
+
+
+//Задача 1. IsNumber
+//Создай тип IsNumber<T>, который возвращает "yes", если переданный тип — число, и "no" — в остальных случаях.
+
+
+{
+type IsNumber<T> = T extends number ? "yes" : "no";
+
+
+type A = IsNumber<17>;            // "yes"
+type B = IsNumber<3.14>;          // "yes"
+type C = IsNumber<"17">;          // "no"
+type D = IsNumber<number[]>;      // "no"
+type E = IsNumber<number | string>; // "yes" | "no"
+}
+
+//Задача 2. OnlyStrings
+//Создай тип OnlyStrings<T>, который из union-типа оставляет только строки (остальные типы полностью убираются).
+
+{
+type OnlyStrings<T> = T extends string ? T : never
+
+type A = OnlyStrings<string | number | boolean | "hello" | 42 | null>;
+// → string | "hello"
+
+type B = OnlyStrings<123 | "test" | true | string[]>;
+// → "test"
+}

@@ -60,3 +60,40 @@ console.log(stringBox.getValue()); // Output: "Typescript"
 
 // ------------------------------------------------------------
 }
+
+{
+    //Несколько дженериков
+
+function merge<T, U>(a: T, b: U) {
+  return { ...a, ...b };
+}
+
+const result = merge(
+  { name: "Alex" },
+  { age: 25 }
+);
+
+// result:
+// {
+//   name: string;
+//   age: number;
+// }
+} 
+
+
+{
+    // Один параметр типа
+function identity<T>(value: T): T {
+    return value;
+}
+const result1 = identity<string>("Hello"); // явно указали тип
+const result2 = identity(42); // тип number вывелся автоматически
+
+// Несколько параметров типа
+function mapArray<T, U>(arr: T[], transform: (item: T) => U): U[] {
+    return arr.map(transform);
+}
+const numbers = [1, 2, 3];
+const strings = mapArray(numbers, (num) => `Number: ${num}`);
+// T = number, U = string
+}
