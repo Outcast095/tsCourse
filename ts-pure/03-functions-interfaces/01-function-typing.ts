@@ -41,6 +41,35 @@ console.log(createGreeting("Алексей", "Здравствуй")); // Здр
 console.log(sumAll(1, 2, 3, 4, 5)); // 15
 console.log(multiply(4, 5)); // 20
 
+// перегрузка функции 
+// типизация функции которая делает запрос разных праметров на сервер 
+// ======================================
+type Itrack = {
+    id: string,
+    trackName: string
+}
+
+type Iplaylist = {
+    id: string,
+    playlistName: string
+}
+
+type iartist = {
+    id: string,
+    artistName: string
+}
+
+function spotifyApi(enpoint: "track", id: string): Promise<Itrack>
+function spotifyApi(enpoint: "playlist", id: string): Promise<Iplaylist>
+function spotifyApi(enpoint: "artist", id: string): Promise<iartist>
+function spotifyApi(enpoint: string, id: string): Promise<unknown> {
+    return fetch(`https//api.spotify.com/v1/${enpoint}s/${id}`).then((res) => res.json())
+}
+
+const track = spotifyApi('track', "123456")
+const playlist = spotifyApi('playlist', "123456")
+const artist = spotifyApi('artist', "123456")
+
 
 
 
