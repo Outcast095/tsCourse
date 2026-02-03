@@ -7,6 +7,21 @@ const numbersArr: number[] = [1, 2, 3, 4, 5];
 const namesArr: string[] = ["Alice", "Bob", "Charlie"];
 const mixedArray: (number | string)[] = [1, "hello", 2, "world"];
 
+{
+// типизация массива с разными типами данных 
+// =======================================
+type obj = {
+    name: string,
+    age: number
+}
+
+type MixedValue = string | number | boolean | obj | number[];
+type MixedArray = MixedValue[];
+
+const data: MixedArray = ["one", 1, true, {name: "Magomed", age: 36}, [34, 55]];
+}
+
+
 // Tuples
 // Кортежи — это массивы с фиксированным числом элементов и известными типами для каждой позиции.
 const personArr: [string, number] = ["Alice", 30];

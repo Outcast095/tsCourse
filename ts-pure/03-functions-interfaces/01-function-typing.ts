@@ -104,3 +104,38 @@ interface Iuser2  {
 function renderUser3 (user: Iuser2): string {
     return `${user.name}, ${user.age}`
 }
+
+{
+// ======================================
+// Типизация стрелочной функции через type 
+
+type SumFunction = (a: number, b: number) => number;
+
+const sum: SumFunction = (a, b) => {
+  return a + b;
+};
+}
+
+
+{
+//https://youtu.be/rPaRVcH9big?t=5016
+// ? - опциональный параметр
+
+function greetHello(name: string, message?: string): string {
+    if (message) {
+      return `Hello, ${name}, ${message}`;
+    } else {
+      return `Hello, ${name}`;
+    }
+}
+
+console.log(greetHello("John")); // Hello, John
+console.log(greetHello("Jane", "Goodbye!")); // Hello, Jane, Goodbye!
+
+}
+
+
+
+
+const arr: number[] = [0, 3, 5, 33]
+const arr2: [string, number] = ["Hello", 23]

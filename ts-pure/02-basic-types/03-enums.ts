@@ -49,6 +49,7 @@ enum Color {
 const favoriteColor: Color = Color.Blue
 console.log(favoriteColor); 
 
+
 // 3. Перечисления с пользовательскими значениями
 enum ResponseCode {
     OK = 200,
@@ -75,7 +76,7 @@ console.log(Direction[Direction.Up]); // Выведет: "Up"
 
 
 ////////////////////////////////////////////////////////////////
-//enum передается параметром в функцию 
+// 5. enum передается параметром в функцию 
 
 {
 enum Color {
@@ -245,6 +246,24 @@ for (const key of Object.keys(Role)) {
 }
 }
 
+{
+   ////////////// enums с typeof 
+   
+   enum Role {
+        Admin  = "admin",
+        Editor = "editor",
+        Viewer = "viewer",
+   }
+
+   type enumType = typeof Role //type enumType = {readonly Admin: Role.Admin; readonly Editor: Role.Editor; readonly Viewer: Role.Viewer;}
+
+   type enumKey = keyof typeof Role //"Admin" | "Editor" | "Viewer"
+
+   // const value: enumType = Role.Editor   //ошибка
+   const value: enumKey = "Admin"
+
+}
+
 ////////////////////////////////////////////////////////////////
 //as const
 
@@ -304,4 +323,25 @@ const enum ConstStatus {
 
 //console.log(ConstStatus[0]);     // Ошибка компиляции!
 //console.log(ConstStatus.Active); // → просто 1 в JS, но reverse нет и быть не может
+}
+
+{
+    const enum colors {
+        Red = "red",
+        Blue = "blue",
+        Green = 'green'
+    }
+
+
+    type IType = {
+        carName: string
+        carAge: number
+        carColor: colors
+    }
+
+    const carObj: IType = {
+        carName: "BMW",
+        carAge: 2005,
+        carColor: colors.Green
+    }
 }
