@@ -28,6 +28,7 @@ const user: Readonly<IUser> = {
 
 // user.id = 2; // Ошибка: нельзя изменить свойство только для чтения
 
+
 // 3. Record<Keys, Type>
 // Создает объектный тип с набором свойств Keys, которые имеют тип Type.
 type Role = "admin" | "user" | "guest";

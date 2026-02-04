@@ -139,3 +139,28 @@ console.log(greetHello("Jane", "Goodbye!")); // Hello, Jane, Goodbye!
 
 const arr: number[] = [0, 3, 5, 33]
 const arr2: [string, number] = ["Hello", 23]
+
+
+// ======================================
+// типизация колбек функций в параметрах функци 
+
+
+{
+    function fetchData(callback: (data: string) => void): void {
+        callback("Hello from server");
+    }
+
+    fetchData((data) => {
+        console.log(data.toUpperCase());
+    });
+}
+
+{
+    type Transform = (value: string) => number;
+
+    function applyTransform(value: string, transform: Transform): number {
+        return transform(value);
+    }
+
+    applyTransform("Hello", (value) => +value)
+}
